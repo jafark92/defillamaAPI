@@ -1,5 +1,4 @@
-
-__title__ = 'defillama'
+__title__ = 'defillamaAPI'
 __description__ = ''
 __url__ = 'https://github.com/jafark92/defillama'
 __version__ = '0.0.1'

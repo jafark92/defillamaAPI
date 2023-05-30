@@ -1,7 +1,7 @@
 import unittest
-from defillama import TVL, Coins
+from defillamaAPI import TVL, Coins
 
-class DefiLlamaTestCase(unittest.TestCase):
+class DefillamaTestCase(unittest.TestCase):
 
     def setUp(self):
         # Set up any necessary objects or data for your tests
