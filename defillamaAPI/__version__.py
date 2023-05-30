@@ -1,6 +1,6 @@
 __title__ = 'defillamaAPI'
 __description__ = ''
-__url__ = 'https://github.com/jafark92/defillama'
+__url__ = 'https://github.com/jafark92/defillamaAPI'
 __version__ = '0.0.1'
 # __build__ = 0x010001
 __author__ = 'Jafar Sadiq'

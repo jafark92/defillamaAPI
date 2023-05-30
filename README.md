@@ -1,4 +1,4 @@
-# defillama
+# defillamaAPI
 Under Development
 API Collection of DefiLlama - Unofficial
 
