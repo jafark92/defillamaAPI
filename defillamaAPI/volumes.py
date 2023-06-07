@@ -1,4 +1,4 @@
-from defillamaAPI import Base
+from .defillamaAPI import Base
 
 VOLUMES_BASE_URL = "https://api.llama.fi"
 class Volumes(Base):

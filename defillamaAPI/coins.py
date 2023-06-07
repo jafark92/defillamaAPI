@@ -1,4 +1,4 @@
-from defillamaAPI import Base
+from .defillamaAPI import Base
 import time
 
 COIN_BASE_URL = "https://coins.llama.fi"

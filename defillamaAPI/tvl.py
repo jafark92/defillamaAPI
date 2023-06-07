@@ -1,4 +1,4 @@
-from defillamaAPI import Base
+from .defillamaAPI import Base
 
 class TVL(Base):
 

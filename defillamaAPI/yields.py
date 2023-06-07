@@ -1,4 +1,4 @@
-from defillamaAPI import Base
+from .defillamaAPI import Base
 
 YIELDS_BASE_URL = "https://yields.llama.fi"
 class Yields(Base):

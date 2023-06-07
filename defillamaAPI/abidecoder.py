@@ -1,4 +1,4 @@
-from defillamaAPI import Base
+from .defillamaAPI import Base
 
 ABI_DECODER_BASE_URL = "https://abi-decoder.llama.fi"
 class ABIDecoder(Base):

@@ -1,4 +1,4 @@
-from defillamaAPI import Base
+from .defillamaAPI import Base
 
 BRIDGES_BASE_URL = "https://bridges.llama.fi"
 class Bridges(Base):

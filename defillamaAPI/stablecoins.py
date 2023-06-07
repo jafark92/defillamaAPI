@@ -1,4 +1,4 @@
-from defillamaAPI import Base
+from .defillamaAPI import Base
 
 STABLECOINS_BASE_URL = "https://stablecoins.llama.fi"
 class Stablecoins(Base):

@@ -1,7 +1,7 @@
-from defillamaAPI import Base
+from .defillamaAPI import Base
 
 FESSANDREVENUE_BASE_URL = "https://api.llama.fi"
-class FessAndRevenue(Base):
+class FeesAndRevenue(Base):
     """"""
     def get_all_protocols(self, excludeTotalDataChart=None, excludeTotalDataChartBreakdown=None, dataType=None):
         """Description: List all protocols along with summaries of their fees and revenue and dataType history data."""
