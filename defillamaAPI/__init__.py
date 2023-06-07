@@ -1,1 +1,9 @@
-from .defillamaAPI import TVL, Coins, Stablecoins, Yields, ABIDecoder, Bridges, Volumes, FessAndRevenue
+# from .defillamaAPI
+from .tvl import TVL
+from .coins import Coins
+from .stablecoins import Stablecoins
+from .yields import Yields
+from .abidecoder import ABIDecoder
+from .bridges import Bridges
+from .volumes import Volumes
+from .feesandrevenue import FessAndRevenue
