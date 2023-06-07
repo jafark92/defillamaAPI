@@ -1,6 +1,6 @@
 # defillamaAPI
 Under Development
-API Collection of DefiLlama - Unofficial
+API Collection of DefiLlama (https://defillama.com/docs/api) - Unofficial
 
 ### Installation:
 

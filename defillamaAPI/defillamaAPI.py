@@ -6,6 +6,13 @@ import time, requests
 
 BASE_URL = "https://api.llama.fi"
 COIN_BASE_URL = "https://coins.llama.fi"
+STABLECOINS_BASE_URL = "https://stablecoins.llama.fi"
+YIELDS_BASE_URL = "https://yields.llama.fi"
+ABI_DECODER_BASE_URL = "https://abi-decoder.llama.fi"
+BRIDGES_BASE_URL = "https://bridges.llama.fi"
+VOLUMES_BASE_URL = "https://api.llama.fi"
+FESSANDREVENUE_BASE_URL = "https://api.llama.fi"
+
 
 class Base:
     """
@@ -200,3 +207,198 @@ class Coins(Base):
 
         return self._send_request(method="GET", endpoint=path, base_url=COIN_BASE_URL)
 
+class Stablecoins(Base):
+    """ """
+    
+    def get_all_stablecoins(self, includePrices=None):
+        """Description: List all stablecoins along with their circulating amounts"""
+        path = '/stablecoins'
+        params = {}
+        if includePrices: params.update({"includePrices": includePrices})
+        return self._send_request(method="GET", endpoint=path, base_url=STABLECOINS_BASE_URL, params=params)
+
+    def get_all_stablecoins_charts(self, stablecoin=None):
+        """Description: Get historical mcap sum of all stablecoins"""
+        path = '/stablecoincharts/all'
+        params = {}
+        if stablecoin: params.update({"stablecoin": stablecoin})
+        return self._send_request(method="GET", endpoint=path, base_url=STABLECOINS_BASE_URL, params=params)
+    
+    def get_stablecoincharts(self, chain, stablecoin):
+        """Description: Get historical mcap sum of all stablecoins in a chain"""
+        path = f"/stablecoincharts/{chain}"
+        params = {}
+        if stablecoin: params.update({"stablecoin": stablecoin})
+        return self._send_request(method="GET", endpoint=path, base_url=STABLECOINS_BASE_URL, params=params)
+
+    def get_stablecoin_asset(self, asset):
+        """Description: Get historical mcap and historical chain distribution of a stablecoin"""
+        path = f'/stablecoin/{asset}'
+        return self._send_request(method="GET", endpoint=path, base_url=STABLECOINS_BASE_URL)
+
+    def get_stablecoinchains(self):
+        """Description: Get current mcap sum of all stablecoins on each chain"""
+        path = '/stablecoinchains'
+        return self._send_request(method="GET", endpoint=path, base_url=STABLECOINS_BASE_URL)
+
+    def get_stablecoinprices(self):
+        """Description: Get historical prices of all stablecoins"""
+        path = '/stablecoinprices'
+        return self._send_request(method="GET", endpoint=path, base_url=STABLECOINS_BASE_URL)
+
+class Yields(Base):
+    """"""
+    def get_all_pools(self):
+        """Description: Retrieve the latest data for all pools, including enriched information such as predictions"""
+        path= "/pools"
+        return self._send_request(method="GET", endpoint=path, base_url=YIELDS_BASE_URL)
+
+    def get_pool_chart(self, pool):
+        """Description: Get historical APY and TVL of a pool"""
+        path= f"/chart/{pool}"
+        return self._send_request(method="GET", endpoint=path, base_url=YIELDS_BASE_URL)
+
+class ABIDecoder(Base):
+    """"""
+    def get_abi(self, functions=None, events=None):
+        """Description: Get the ABI for a function or event signature."""
+        path = '/fetch/signature'
+        params = {}
+        if functions is None and events is None:
+            return {"message": "Kindly provide either functions or events"}
+        if functions:
+            params.update({"functions": functions})
+        if events:
+            params.update({"events": events})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=ABI_DECODER_BASE_URL)
+    
+    def get_abi_contract(self, chain, address, functions=None, events=None):
+        """Description: Get the verbose ABI for a function or event signature for a particular contract"""
+        path = f'/fetch/contract/{chain}/{address}'
+        params = {}
+        if functions is None and events is None:
+            return {"message": "Kindly provide either functions or events"}
+        if functions:
+            params.update({"functions": functions})
+        if events:
+            params.update({"events": events})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=ABI_DECODER_BASE_URL)
+
+class Bridges(Base):
+    """"""
+    def get_all_bridges(self, includeChains=True):
+        """Description: List all bridges along with summaries of recent bridge volumes."""
+        path = '/bridges'
+        params = {"includeChains": includeChains}
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
+
+    def get_bridgevolume_summary(self, id):
+        """Description: Get a summary of bridge volume and volume breakdown by chain."""
+        path = f'/bridge/{id}'
+        return self._send_request(method="GET", endpoint=path, base_url=BRIDGES_BASE_URL)
+
+    def get_bridgevolume(self, chain, id=None):
+        """Description: Get historical volumes for a bridge, chain, or bridge on a particular chain."""
+        path = f'/bridgevolume/{chain}'
+        params = {}
+        if id: params.update({"id":id})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
+
+    def get_bridgevolume_token(self, timestamp, chain, id=None):
+        """Description: Get a 24hr token and address volume breakdown for a bridge."""
+        path = f"/bridgedaystats/{timestamp}/{chain}"
+        params = {}
+        if id: params.update({"id":id})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
+    
+    def get_all_transactions(self, id, starttimestamp=None, endtimestamp=None, sourcechain=None, address=None, limit=None):
+        """Description: Get all transactions for a bridge within a date range."""
+        path = f'/transactions/{id}'
+        params = {}
+        if id: params.update({"starttimestamp":starttimestamp})
+        if id: params.update({"endtimestamp":endtimestamp})
+        if id: params.update({"sourcechain":sourcechain})
+        if id: params.update({"address":address})
+        if id: params.update({"limit":limit})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
+
+class Volumes(Base):
+    """"""
+    def get_all_dexs(self, excludeTotalDataChart=None, excludeTotalDataChartBreakdown=None, dataType=None):
+        """Description: List all dexs along with summaries of their volumes and dataType history data."""
+        path = "/overview/dexs"
+        params= {}
+        if excludeTotalDataChart: params.update({"excludeTotalDataChart":excludeTotalDataChart})
+        if excludeTotalDataChartBreakdown: params.update({"excludeTotalDataChartBreakdown":excludeTotalDataChartBreakdown})
+        if dataType: params.update({"dataType":dataType})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=VOLUMES_BASE_URL)
+
+    def get_dexs_chain(self, chain, excludeTotalDataChart=None, excludeTotalDataChartBreakdown=None, dataType=None):
+        """Description: List all dexs along with summaries of their volumes and dataType history data filtering by chain."""
+        path = f"/overview/dexs/{chain}"
+        params= {}
+        if excludeTotalDataChart: params.update({"excludeTotalDataChart":excludeTotalDataChart})
+        if excludeTotalDataChartBreakdown: params.update({"excludeTotalDataChartBreakdown":excludeTotalDataChartBreakdown})
+        if dataType: params.update({"dataType":dataType})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=VOLUMES_BASE_URL)
+
+    def get_dex_hist_data(self, protocol, excludeTotalDataChart=None, excludeTotalDataChartBreakdown=None, dataType=None):
+        """Description: Get a summary of dex volume with historical data."""
+        path = f"/summary/dexs/{protocol}"
+        params= {}
+        if excludeTotalDataChart: params.update({"excludeTotalDataChart":excludeTotalDataChart})
+        if excludeTotalDataChartBreakdown: params.update({"excludeTotalDataChartBreakdown":excludeTotalDataChartBreakdown})
+        if dataType: params.update({"dataType":dataType})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=VOLUMES_BASE_URL)
+
+    def get_dexs_options(self, excludeTotalDataChart=None, excludeTotalDataChartBreakdown=None, dataType=None):
+        """Description: List all options dexs along with summaries of their volumes and dataType history data."""
+        path = "/overview/options"
+        params= {}
+        if excludeTotalDataChart: params.update({"excludeTotalDataChart":excludeTotalDataChart})
+        if excludeTotalDataChartBreakdown: params.update({"excludeTotalDataChartBreakdown":excludeTotalDataChartBreakdown})
+        if dataType: params.update({"dataType":dataType})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=VOLUMES_BASE_URL)
+
+    def get_dexs_chain(self, chain, excludeTotalDataChart=None, excludeTotalDataChartBreakdown=None, dataType=None):
+        """Description: List all options dexs along with summaries of their volumes and dataType history data filtering by chain."""
+        path = f"/overview/options/{chain}"
+        params= {}
+        if excludeTotalDataChart: params.update({"excludeTotalDataChart":excludeTotalDataChart})
+        if excludeTotalDataChartBreakdown: params.update({"excludeTotalDataChartBreakdown":excludeTotalDataChartBreakdown})
+        if dataType: params.update({"dataType":dataType})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=VOLUMES_BASE_URL)
+
+    def get_dexs_protocol(self, protocol, dataType=None):
+        """Description: Get a summary of options dex volume with historical data."""
+        path = f"/summary/options/{protocol}"
+        params= {}
+        if dataType: params.update({"dataType": dataType})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=VOLUMES_BASE_URL)
+
+class FessAndRevenue(Base):
+    """"""
+    def get_all_protocols(self, excludeTotalDataChart=None, excludeTotalDataChartBreakdown=None, dataType=None):
+        """Description: List all protocols along with summaries of their fees and revenue and dataType history data."""
+        path = "/overview/fees"
+        params = {}
+        if excludeTotalDataChart: params.update({"excludeTotalDataChart":excludeTotalDataChart})
+        if excludeTotalDataChartBreakdown: params.update({"excludeTotalDataChartBreakdown":excludeTotalDataChartBreakdown})
+        if dataType: params.update({"dataType":dataType})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=FESSANDREVENUE_BASE_URL)
+
+    def get_protocols_chain(self, chain, excludeTotalDataChart=None, excludeTotalDataChartBreakdown=None, dataType=None):
+        """Description: List all protocols along with summaries of their fees and revenue and dataType history data by chain."""
+        path = f"/overview/fees/{chain}"
+        params = {}
+        if excludeTotalDataChart: params.update({"excludeTotalDataChart":excludeTotalDataChart})
+        if excludeTotalDataChartBreakdown: params.update({"excludeTotalDataChartBreakdown":excludeTotalDataChartBreakdown})
+        if dataType: params.update({"dataType":dataType})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=FESSANDREVENUE_BASE_URL)
+
+    def get_summary_protocol(self, protocol, dataType=None):
+        """Description: Get a summary of protocol fees and revenue with historical data."""
+        path = f"/summary/fees/{protocol}"
+        params = {}
+        if dataType: params.update({"dataType":dataType})
+        return self._send_request(method="GET", endpoint=path, params=params, base_url=FESSANDREVENUE_BASE_URL)
