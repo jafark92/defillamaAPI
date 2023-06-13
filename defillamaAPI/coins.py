@@ -51,7 +51,7 @@ class Coins(Base):
         """
         path = f"/prices/current/{coins}"
 
-        return self._send_request(method="GET", endpoint=path, base_url=COIN_BASE_URL,  params={"searchWidth": searchWidth})
+        return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params={"searchWidth": searchWidth})
 
     def token_historical_prices(self, timestamp, coins, searchWidth="4h"):
         """
@@ -61,7 +61,7 @@ class Coins(Base):
         """
         path = f'/prices/historical/{timestamp}/{coins}'
 
-        return self._send_request(method="GET", endpoint=path, base_url=COIN_BASE_URL,  params={"searchWidth": searchWidth})
+        return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params={"searchWidth": searchWidth})
 
     def batch_historical(self, coins, searchWidth="600"):
         """
@@ -69,7 +69,7 @@ class Coins(Base):
         """
         path = "/batchHistorical"
 
-        return self._send_request(method="GET", endpoint=path, base_url=COIN_BASE_URL,  params={"coins": coins, "searchWidth": searchWidth})
+        return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params={"coins": coins, "searchWidth": searchWidth})
     
     def token_pricess_by_time(self, coins, start=1664364537, end=None, span=10, period="2d", searchWidth="600"):
         """
@@ -81,7 +81,7 @@ class Coins(Base):
         if end is not None:
             params['end'] = end
 
-        return self._send_request(method="GET", endpoint=path, base_url=COIN_BASE_URL,  params=params)
+        return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params=params)
 
     def percentage_change(self, coins, timestamp=None, lookForward=False, period="3w"):
         """
@@ -91,7 +91,7 @@ class Coins(Base):
         path = f'/percentage/{coins}'
         params = {'timestamp': timestamp, 'lookForward': lookForward, 'period': period}
 
-        return self._send_request(method="GET", endpoint=path, base_url=COIN_BASE_URL,  params=params)
+        return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params=params)
 
     def first_price(self, coins):
         """
@@ -99,7 +99,7 @@ class Coins(Base):
         """
         path = f'/prices/first/{coins}'
 
-        return self._send_request(method="GET", endpoint=path, base_url=COIN_BASE_URL)
+        return self._send_request(endpoint=path, base_url=COIN_BASE_URL)
     
     def closest_block(self, chain, timestamp):
         """
@@ -107,4 +107,4 @@ class Coins(Base):
         """
         path = f'/block/{chain}/{timestamp}'
 
-        return self._send_request(method="GET", endpoint=path, base_url=COIN_BASE_URL)
+        return self._send_request(endpoint=path, base_url=COIN_BASE_URL)

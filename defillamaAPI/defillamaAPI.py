@@ -10,7 +10,7 @@ class Base:
         """
         self.session = requests.Session()
 
-    def _send_request(self, method, endpoint, base_url=BASE_URL, params=None, data=None):
+    def _send_request(self, endpoint, method="GET", base_url=BASE_URL, params=None, data=None):
         """
         """
         url = base_url + endpoint

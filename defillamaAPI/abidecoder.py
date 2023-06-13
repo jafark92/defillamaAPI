@@ -13,7 +13,7 @@ class ABIDecoder(Base):
             params.update({"functions": functions})
         if events:
             params.update({"events": events})
-        return self._send_request(method="GET", endpoint=path, params=params, base_url=ABI_DECODER_BASE_URL)
+        return self._send_request(endpoint=path, params=params, base_url=ABI_DECODER_BASE_URL)
     
     def get_abi_contract(self, chain, address, functions=None, events=None):
         """Description: Get the verbose ABI for a function or event signature for a particular contract"""
@@ -25,4 +25,4 @@ class ABIDecoder(Base):
             params.update({"functions": functions})
         if events:
             params.update({"events": events})
-        return self._send_request(method="GET", endpoint=path, params=params, base_url=ABI_DECODER_BASE_URL)
+        return self._send_request(endpoint=path, params=params, base_url=ABI_DECODER_BASE_URL)

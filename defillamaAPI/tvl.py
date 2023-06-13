@@ -11,7 +11,7 @@ class TVL(Base):
         """
         path = '/protocols'
 
-        return self._send_request(method="GET", endpoint=path)
+        return self._send_request(endpoint=path)
 
     def get_protocol_historical_tvl(self, protocol):
         """
@@ -24,7 +24,7 @@ class TVL(Base):
         """
         path = f'/protocol/{protocol}'
 
-        return self._send_request(method="GET", endpoint=path)
+        return self._send_request(endpoint=path)
 
     def get_historical_tvl(self):
         """
@@ -34,7 +34,7 @@ class TVL(Base):
         """
         path = '/v2/historicalChainTvl'
 
-        return self._send_request(method="GET", endpoint=path)
+        return self._send_request(endpoint=path)
 
     def get_historical_tvl_by_chain(self, chain):
         """
@@ -46,7 +46,7 @@ class TVL(Base):
         """
         path = f"/v2/historicalChainTvl/{chain}"
 
-        return self._send_request(method="GET", endpoint=path)
+        return self._send_request(endpoint=path)
     
     def get_tvl_of_protocol(self, protocol):
         """
@@ -57,7 +57,7 @@ class TVL(Base):
         """
         path = f'/tvl/{protocol}'
 
-        return self._send_request(method="GET", endpoint=path)
+        return self._send_request(endpoint=path)
     
     def get_tvl_chains(self, protocol):
         """
@@ -66,4 +66,4 @@ class TVL(Base):
         """
         path = '/v2/chains'
 
-        return self._send_request(method="GET", endpoint=path)
+        return self._send_request(endpoint=path)
