@@ -30,6 +30,7 @@ stablecoins = defillama_stablecoins.get_all_stablecoins()
 ```
 -------
 **Task ToDo**
+- Write Test cases to validate the response
 - Add Doc string details for all endpoints
 - User can select if he wants pandas dataframe or just response json
 - Test with other versions of python ( Although used only requests and time module with no fancy methods)

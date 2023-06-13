@@ -6,7 +6,7 @@ class Bridges(Base):
     def get_all_bridges(self, includeChains=True):
         """Description: List all bridges along with summaries of recent bridge volumes."""
         path = '/bridges'
-        params = {"includeChains": includeChains}
+        params = self._get_params_dict(includeChains)
         return self._send_request(endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
 
     def get_bridgevolume_summary(self, id):
@@ -17,24 +17,17 @@ class Bridges(Base):
     def get_bridgevolume(self, chain, id=None):
         """Description: Get historical volumes for a bridge, chain, or bridge on a particular chain."""
         path = f'/bridgevolume/{chain}'
-        params = {}
-        if id: params.update({"id":id})
+        params = self._get_params_dict(id)
         return self._send_request(endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
 
     def get_bridgevolume_token(self, timestamp, chain, id=None):
         """Description: Get a 24hr token and address volume breakdown for a bridge."""
         path = f"/bridgedaystats/{timestamp}/{chain}"
-        params = {}
-        if id: params.update({"id":id})
+        params = self._get_params_dict(id)
         return self._send_request(endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
     
     def get_all_transactions(self, id, starttimestamp=None, endtimestamp=None, sourcechain=None, address=None, limit=None):
         """Description: Get all transactions for a bridge within a date range."""
         path = f'/transactions/{id}'
-        params = {}
-        if starttimestamp: params.update({"starttimestamp":starttimestamp})
-        if endtimestamp: params.update({"endtimestamp":endtimestamp})
-        if sourcechain: params.update({"sourcechain":sourcechain})
-        if address: params.update({"address":address})
-        if limit: params.update({"limit":limit})
+        params = self._get_params_dict(starttimestamp,endtimestamp,sourcechain,address,limit)
         return self._send_request(endpoint=path, params=params, base_url=BRIDGES_BASE_URL)

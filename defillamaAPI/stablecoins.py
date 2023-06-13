@@ -7,22 +7,19 @@ class Stablecoins(Base):
     def get_all_stablecoins(self, includePrices=None):
         """Description: List all stablecoins along with their circulating amounts"""
         path = '/stablecoins'
-        params = {}
-        if includePrices: params.update({"includePrices": includePrices})
+        params = self._get_params_dict(includePrices)
         return self._send_request(endpoint=path, base_url=STABLECOINS_BASE_URL, params=params)
 
     def get_all_stablecoins_charts(self, stablecoin=None):
         """Description: Get historical mcap sum of all stablecoins"""
         path = '/stablecoincharts/all'
-        params = {}
-        if stablecoin: params.update({"stablecoin": stablecoin})
+        params = self._get_params_dict(stablecoin)
         return self._send_request(endpoint=path, base_url=STABLECOINS_BASE_URL, params=params)
     
     def get_stablecoincharts(self, chain, stablecoin):
         """Description: Get historical mcap sum of all stablecoins in a chain"""
         path = f"/stablecoincharts/{chain}"
-        params = {}
-        if stablecoin: params.update({"stablecoin": stablecoin})
+        params = self._get_params_dict(stablecoin)
         return self._send_request(endpoint=path, base_url=STABLECOINS_BASE_URL, params=params)
 
     def get_stablecoin_asset(self, asset):

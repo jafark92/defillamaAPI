@@ -50,7 +50,6 @@ class Coins(Base):
         :return: JSON response
         """
         path = f"/prices/current/{coins}"
-
         return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params={"searchWidth": searchWidth})
 
     def token_historical_prices(self, timestamp, coins, searchWidth="4h"):
@@ -60,7 +59,6 @@ class Coins(Base):
         :return: JSON response
         """
         path = f'/prices/historical/{timestamp}/{coins}'
-
         return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params={"searchWidth": searchWidth})
 
     def batch_historical(self, coins, searchWidth="600"):
@@ -68,7 +66,6 @@ class Coins(Base):
         Strings accepted by period and searchWidth: Can use regular chart candle notion like ‘4h’ etc where: W = week, D = day, H = hour, M = minute (not case sensitive)
         """
         path = "/batchHistorical"
-
         return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params={"coins": coins, "searchWidth": searchWidth})
     
     def token_pricess_by_time(self, coins, start=1664364537, end=None, span=10, period="2d", searchWidth="600"):
@@ -77,10 +74,8 @@ class Coins(Base):
         """
         path = f'/chart/{coins}'
         params = {'start': start, 'span': span, 'period': period, 'searchWidth': searchWidth}
-    
         if end is not None:
             params['end'] = end
-
         return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params=params)
 
     def percentage_change(self, coins, timestamp=None, lookForward=False, period="3w"):
@@ -89,8 +84,8 @@ class Coins(Base):
         """
         if timestamp is None: timestamp=time.now()
         path = f'/percentage/{coins}'
-        params = {'timestamp': timestamp, 'lookForward': lookForward, 'period': period}
-
+        params = self._get_params_dict(timestamp, lookForward)
+        params.update({'period': period})
         return self._send_request(endpoint=path, base_url=COIN_BASE_URL,  params=params)
 
     def first_price(self, coins):
@@ -98,7 +93,6 @@ class Coins(Base):
         Strings accepted by period: Can use regular chart candle notion like ‘4h’ etc where: W = week, D = day, H = hour, M = minute (not case sensitive)
         """
         path = f'/prices/first/{coins}'
-
         return self._send_request(endpoint=path, base_url=COIN_BASE_URL)
     
     def closest_block(self, chain, timestamp):
@@ -106,5 +100,4 @@ class Coins(Base):
         Runs binary search over a blockchain's blocks to get the closest one to a timestamp. Every time this is run we add new data to our database, so each query permanently speeds up future queries.
         """
         path = f'/block/{chain}/{timestamp}'
-
         return self._send_request(endpoint=path, base_url=COIN_BASE_URL)
