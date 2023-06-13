@@ -32,9 +32,9 @@ class Bridges(Base):
         """Description: Get all transactions for a bridge within a date range."""
         path = f'/transactions/{id}'
         params = {}
-        if id: params.update({"starttimestamp":starttimestamp})
-        if id: params.update({"endtimestamp":endtimestamp})
-        if id: params.update({"sourcechain":sourcechain})
-        if id: params.update({"address":address})
-        if id: params.update({"limit":limit})
+        if starttimestamp: params.update({"starttimestamp":starttimestamp})
+        if endtimestamp: params.update({"endtimestamp":endtimestamp})
+        if sourcechain: params.update({"sourcechain":sourcechain})
+        if address: params.update({"address":address})
+        if limit: params.update({"limit":limit})
         return self._send_request(endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
