@@ -4,16 +4,16 @@ STABLECOINS_BASE_URL = "https://stablecoins.llama.fi"
 class Stablecoins(Base):
     """ """
     
-    def get_all_stablecoins(self, includePrices=None):
+    def get_all_stablecoins(self, **args):
         """Description: List all stablecoins along with their circulating amounts"""
         path = '/stablecoins'
-        params = self._get_params_dict(includePrices)
+        params = self._get_params_dict(**args)
         return self._send_request(endpoint=path, base_url=STABLECOINS_BASE_URL, params=params)
 
-    def get_all_stablecoins_charts(self, stablecoin=None):
+    def get_all_stablecoins_charts(self, **args):
         """Description: Get historical mcap sum of all stablecoins"""
         path = '/stablecoincharts/all'
-        params = self._get_params_dict(stablecoin)
+        params = self._get_params_dict(**args)
         return self._send_request(endpoint=path, base_url=STABLECOINS_BASE_URL, params=params)
     
     def get_stablecoincharts(self, chain, stablecoin):

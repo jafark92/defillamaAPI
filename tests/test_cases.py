@@ -25,9 +25,6 @@ class DefillamaTestCase(unittest.TestCase):
             self.coins.batch_historical(coins="ethereum:0xdF574c24545E5FfEcb9a659c229253D4111d87e1")
         except Exception as e:
             print(f"Encounter Error in coin_batch_historical: {str(e)}")
-
     
-    
-
 if __name__ == '__main__':
     unittest.main()

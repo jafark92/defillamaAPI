@@ -14,20 +14,20 @@ class Bridges(Base):
         path = f'/bridge/{id}'
         return self._send_request(endpoint=path, base_url=BRIDGES_BASE_URL)
 
-    def get_bridgevolume(self, chain, id=None):
+    def get_bridgevolume(self, chain, **args):
         """Description: Get historical volumes for a bridge, chain, or bridge on a particular chain."""
         path = f'/bridgevolume/{chain}'
-        params = self._get_params_dict(id)
+        params = self._get_params_dict(**args)
         return self._send_request(endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
 
-    def get_bridgevolume_token(self, timestamp, chain, id=None):
+    def get_bridgevolume_token(self, timestamp, chain, **args):
         """Description: Get a 24hr token and address volume breakdown for a bridge."""
         path = f"/bridgedaystats/{timestamp}/{chain}"
-        params = self._get_params_dict(id)
+        params = self._get_params_dict(**args)
         return self._send_request(endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
     
-    def get_all_transactions(self, id, starttimestamp=None, endtimestamp=None, sourcechain=None, address=None, limit=None):
+    def get_all_transactions(self, id, **args):
         """Description: Get all transactions for a bridge within a date range."""
         path = f'/transactions/{id}'
-        params = self._get_params_dict(starttimestamp,endtimestamp,sourcechain,address,limit)
+        params = self._get_params_dict(**args)
         return self._send_request(endpoint=path, params=params, base_url=BRIDGES_BASE_URL)
