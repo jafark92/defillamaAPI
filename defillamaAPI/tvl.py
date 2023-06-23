@@ -8,6 +8,11 @@ class TVL(Base):
 
     def get_protocols(self):
         """
+        List all protocols on defillama along with their tvl
+
+        Return
+        ----------
+        JSON response
         """
         path = '/protocols'
         return self._send_request(endpoint=path)
@@ -15,11 +20,16 @@ class TVL(Base):
     def get_protocol_historical_tvl(self, protocol):
         """
         Get historical TVL of a protocol and breakdowns by token and chain
-        Endpoint: GET /protocol/{name}
 
-        :param: protocol : protocol slug eg: aave
-            Can be obtained from the /protocols endpoint
-        :return: JSON response
+        Parameters
+        ----------
+        protocol : string (path)
+            protocol slug. Can be obtained from the /protocols endpoint
+            Example: aave
+
+        Return
+        ----------
+        JSON response
         """
         path = f'/protocol/{protocol}'
         return self._send_request(endpoint=path)
@@ -28,7 +38,9 @@ class TVL(Base):
         """
         Get historical TVL (excludes liquid staking and double counted tvl) of DeFi on all chains
 
-        :return: JSON response
+        Return
+        ----------
+        JSON response
         """
         path = '/v2/historicalChainTvl'
         return self._send_request(endpoint=path)
@@ -37,9 +49,15 @@ class TVL(Base):
         """
         Get historical TVL (excludes liquid staking and double counted tvl) of a chain
 
-        :param: chain : chain slug, you can get these from /chains or the chains property on /protocols eg: Ethereum.
-            This can be obtained from the /protocols endpoint
-        :return: JSON response
+        Parameters
+        ----------
+        chain : string (path)
+            chain slug, you can get these from /chains or the chains property on /protocols
+            Example: Ethereum
+
+        Return
+        ----------
+        JSON response
         """
         path = f"/v2/historicalChainTvl/{chain}"
         return self._send_request(endpoint=path)
@@ -48,8 +66,15 @@ class TVL(Base):
         """
         Simplified endpoint that only returns a number, the current TVL of a protocol
         
-        :param: protocol : protocol slug eg: uniswap
-        :return: JSON response
+        Parameters
+        ----------
+        protocol : string (path)
+            protocol slug 
+            Example: uniswap
+
+        Return
+        ----------
+        JSON response
         """
         path = f'/tvl/{protocol}'
         return self._send_request(endpoint=path)
@@ -57,7 +82,10 @@ class TVL(Base):
     def get_tvl_chains(self, protocol):
         """
         Get current TVL of all chains
-        :return: JSON response
+
+        Return
+        ----------
+        JSON response
         """
         path = '/v2/chains'
         return self._send_request(endpoint=path)
